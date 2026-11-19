@@ -12,6 +12,10 @@ Install the optional SDK, then select the provider:
 pip install "deerflow-harness[opensandbox]"
 ```
 
+The extra requires `opensandbox` 1.1.0 or newer. In `use_server_proxy` mode,
+older SDKs attach the API key to lifecycle calls but not to proxied `execd`
+calls, so a server that authenticates its proxy routes rejects them.
+
 ```yaml
 sandbox:
   use: deerflow.community.opensandbox:OpenSandboxProvider
@@ -131,7 +135,7 @@ The full DeerFlow surface is implemented:
   signal status need additional deadline information before it can safely be
   normalized to 124.
 - Text and binary file operations use OpenSandbox's native filesystem API.
-  Append is serialized as a read-modify-write because SDK 0.1.x has no append
+  Append is serialized as a read-modify-write because the SDK has no append
   primitive.
 - `list_dir`, `glob`, and `grep` use portable `find`/`grep` commands and the
   shared DeerFlow result parsers.
